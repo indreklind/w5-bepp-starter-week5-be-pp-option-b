@@ -11,14 +11,24 @@ const getAllTours = async (req, res) => {
 };
 
 // POST /tours
-const createTour = (req, res) => {
-  const newTour = Tour.addOne({ ...req.body }); // Spread the req.body object
+const createTour = async (req, res) => {
+  try {
+    const { name, info, image, price, duration, rating, season, specialOffer } = req.body;
 
-  if (newTour) {
-    res.status(201).json(newTour); // 201 Created
-  } else {
-    // Handle error (e.g., failed to create tour)
-    res.status(400).json({ message: "Invalid tour data. Ensure all fields are provided, including 'season' and 'specialOffer'." });
+    const newTour = await Tour.create({
+      name,
+      info,
+      image,
+      price,
+      duration,
+      rating,
+      season,
+      specialOffer,
+    });
+
+    res.status(201).json(newTour);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 };
  
