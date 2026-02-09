@@ -33,13 +33,24 @@ const createTour = async (req, res) => {
 };
  
 // GET /tours/:tourId
-const getTourById = (req, res) => {
-  const tourId = req.params.tourId;
-  const tour = Tour.findById(tourId);
-  if (tour) {
+const getTourById = async (req, res) => {
+  try {
+    const { tourId } = req.params;
+
+    // Validate MongoDB ObjectId format
+    if (!mongoose.Types.ObjectId.isValid(tourId)) {
+      return res.status(400).json({ message: 'Invalid tour ID format' });
+    }
+
+    const tour = await Tour.findById(tourId);
+
+    if (!tour) {
+      return res.status(404).json({ message: 'Tour not found' });
+    }
+
     res.json(tour);
-  } else {
-    res.status(404).json({ message: "Tour not found" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
