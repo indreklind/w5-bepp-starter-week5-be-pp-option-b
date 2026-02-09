@@ -1,9 +1,13 @@
 const Tour = require("../models/tourModel");
 
 // GET /tours
-const getAllTours = (req, res) => {
-  const tours = Tour.getAll();
-  res.json(tours);
+const getAllTours = async (req, res) => {
+  try {
+    const tours = await Tour.find().sort({ createdAt: -1 });
+    res.json(tours);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 // POST /tours
