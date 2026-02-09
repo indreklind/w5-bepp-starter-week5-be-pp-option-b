@@ -17,13 +17,13 @@ app.get('/', (req, res) => {
 });
 
 // Use text routes
-app.use('/api/ai', aiRoutes);
+app.use('/ai', aiRoutes);
  
 // Use the tourRouter for all "/tours" routes
-app.use("/api/tours", tourRouter);
+app.use("/tours", tourRouter);
 
 // Use the userRouter for all /users routes
-app.use("/api/users", userRouter);
+app.use("/users", userRouter);
 
 app.use(unknownEndpoint);
 // app.use(errorHandler);
