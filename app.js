@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require("express");
+const connectDB = require('./config/db');
 const app = express();
+connectDB();
 const tourRouter = require("./routes/tourRouter");
 const userRouter = require("./routes/userRouter");
 const aiRoutes = require("./routes/aiRoutes.js")
@@ -33,5 +35,3 @@ const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-//chore: add Google AI API key to environment
-//chore: verify AI endpoint configuration
