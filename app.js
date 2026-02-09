@@ -34,3 +34,4 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 //chore: add Google AI API key to environment
+//chore: verify AI endpoint configuration
